@@ -153,6 +153,30 @@ describe('FoodSearch', function () {
           expect(wrapper.find('tbody tr').length).toBe(0);
         });
       });
+
+      describe('then user clear search field', function () {
+        beforeEach(function () {
+          const input = wrapper.find('input').first();
+          input.simulate('change', {
+            target: { value: '' }
+          });
+        });
+
+        it('should udpate state property `searchValue to empty value`', function () {
+          expect(wrapper.state().searchValue).toEqual('');
+        });
+        it('should update state property `foods` to empty array', function () {
+            expect(wrapper.state().foods).toEqual([]);
+        });
+        it('should update state property `showRemoveIcon` to false', function () {
+            expect(wrapper.state().showRemoveIcon).toBeFalsy();
+        });
+        it('should not call Client.search API', function () {
+            const expectClientSearchToHaveNotBeenCalled = Client.search.mock.calls;
+            // if Client.search was called there would be 2 calls
+            expect(expectClientSearchToHaveNotBeenCalled.length).toBe(1)
+        });
+      });
     });
   });
 });
