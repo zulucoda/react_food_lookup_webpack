@@ -130,6 +130,29 @@ describe('FoodSearch', function () {
           });
         });
       });
+
+      describe('then user clicks on X remove icon', function () {
+        beforeEach(function () {
+          const removeIcon = wrapper.find('.remove.icon').first();
+          removeIcon.simulate('click');
+        });
+
+        it('should update state property `searchValue` to empty value', function () {
+          expect(wrapper.state().searchValue).toEqual('');
+        });
+        it('shoudld update state property `foods` to empty array', function () {
+          expect(wrapper.state().foods).toEqual([]);
+        });
+        it('should update state property `showRemoveIcon` to false', function () {
+          expect(wrapper.state().showRemoveIcon).toBeFalsy();
+        });
+        it('should not display the remove icon', function () {
+          expect(wrapper.find('.remove.icon').length).toBe(0);
+        });
+        it('should not display any rows', function () {
+          expect(wrapper.find('tbody tr').length).toBe(0);
+        });
+      });
     });
   });
 });
